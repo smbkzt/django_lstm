@@ -10,7 +10,7 @@ from django_lstm.settings import BASE_DIR
 
 class TryLstm():
     def __init__(self):
-        print("Preparing the lstm model...")
+        print("Creating LSTM instance")
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
         self.maxSeqLength = config.maxSeqLength
         self.batchSize = config.batchSize

@@ -2,3 +2,4 @@ main/tf/
 __pycache__
 .DS_Store
 */.DS_Store/
+settings_config.py
