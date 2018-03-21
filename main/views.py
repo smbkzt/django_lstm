@@ -6,9 +6,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from django.views import View
-from . import LSTM
+from .LSTM import TryLstm
 
-try_lstm = LSTM.TryLstm()  # LSTM instance creation
+try_lstm = TryLstm()  # LSTM instance creation
 
 
 @method_decorator(csrf_exempt, name='dispatch')
