@@ -1,6 +1,6 @@
 $('#ajax-form').on('submit', function(event){
     event.preventDefault();
-    $(".loader").css("display", "block");
+    $(".loader").css("display", "inline-block");
     $("#answer").css("display", "none");
     $.ajax({
         url : "/",

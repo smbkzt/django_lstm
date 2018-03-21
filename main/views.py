@@ -24,7 +24,6 @@ class IndexView(View):
                 return render(request, "main/index.html")
             messages = message + " < - > " + response
             answer = try_lstm.predict(messages)
-            time.sleep(1)  # Just to show server load
             return HttpResponse(json.dumps(answer),
                                 content_type="application/json"
                                 )
