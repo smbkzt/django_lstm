@@ -20,6 +20,8 @@ class IndexView(View):
         if request.is_ajax():
             message = request.POST.get("the_origin", "")
             response = request.POST.get("the_comment", "")
+            if any(i == "" for i in [message, response]):
+                return render(request, "main/index.html")
             messages = message + " < - > " + response
             answer = try_lstm.predict(messages)
             time.sleep(1)  # Just to show server load
