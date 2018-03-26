@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import IndexView
-
+from .views import TryLstm
+from .views import home
 
 urlpatterns = [
-    path('', IndexView.as_view(), name="")
+    path('', home, name="home_page"),
+    path('try-lstm', TryLstm.as_view(), name="try_lstm_page")
 ]
