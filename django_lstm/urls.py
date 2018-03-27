@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from main import urls as main_urls
+from tweets import urls as tweet_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(main_urls))
+    path('', include(main_urls)),
+    path('tweet-search', include(tweet_urls)),
 ]

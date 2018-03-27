@@ -1,11 +1,10 @@
-import time
 import json
 
+from django.views import View
 from django.shortcuts import render, HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
-from django.views import View
 from .LSTM import TryLstm
 
 try_lstm = TryLstm()  # LSTM instance creation
