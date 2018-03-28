@@ -31,7 +31,6 @@ $('#ajax-tweet-form').on('submit', function(event){
         data : { "keywords" : $('#input-keyword').val()},
         success : function(json) {
             var data = JSON.stringify(json);
-            $("#mynetwork").css("display", "block");
             $(".loader").css("display", "none");
             $("#answer").css("display", "none");
             var parsed = JSON.parse(data);
