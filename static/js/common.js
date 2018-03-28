@@ -24,14 +24,16 @@ $('#ajax-lstm-form').on('submit', function(event){
 $('#ajax-tweet-form').on('submit', function(event){
     event.preventDefault();
     $(".loader").css("display", "inline-block");
-    $("#answer").css("display", "none");
+    $("#answer").css("display", "inline-block");
     $.ajax({
         url : "/tweet-search",
         type : "POST",
         data : { "keywords" : $('#input-keyword').val()},
         success : function(json) {
             var data = JSON.stringify(json);
+            $("#mynetwork").css("display", "block");
             $(".loader").css("display", "none");
+            $("#answer").css("display", "none");
             var parsed = JSON.parse(data);
             var container = document.getElementById('mynetwork');
             var data = {
