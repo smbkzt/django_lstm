@@ -48,6 +48,7 @@ body {
   border-bottom-left-radius: 0;
 }
 
+/*Loader*/
 .loader {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -64,9 +65,16 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/*end of loader*/
 
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
 }
 
+#mynetwork {
+    margin: auto;
+    width: 90%;
+    height: 500px;
+    border: 2px solid lightblue;
+}
