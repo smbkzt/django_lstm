@@ -31,7 +31,6 @@ $('#ajax-tweet-form').on('submit', function(event){
         data : { "keywords" : $('#input-keyword').val()},
         success : function(json) {
             var data = JSON.stringify(json);
-            console.log(data);
             $(".loader").css("display", "none");
             var parsed = JSON.parse(data);
             var container = document.getElementById('mynetwork');
@@ -39,7 +38,19 @@ $('#ajax-tweet-form').on('submit', function(event){
                 nodes: parsed.nodes,
                 edges: parsed.edges
             };
-            var options = {};
+            var options = {
+                edges:{
+                    arrows: {
+                        from: {enabled: true, scaleFactor:0.75, type:'arrow'}
+                    },
+                    length: 150,
+                },
+                nodes:{
+                    brokenImage: undefined,
+                    shape: 'circularImage',
+                    chosen: true,
+                }
+            }
             var network = new vis.Network(container, data, options);
         }
 

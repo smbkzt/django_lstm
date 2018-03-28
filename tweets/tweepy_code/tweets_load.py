@@ -107,14 +107,19 @@ class TwitterAccount():
                 try:
                     tweet_dict = {}
                     origin_tweet = self.api.get_status(id=tweet.in_reply_to_status_id)
-                    tweet_dict['origin_tweet_user'] = origin_tweet.user.screen_name
-                    tweet_dict['origin_tweet_text'] = origin_tweet.text
+                    if not origin_tweet.user.id == tweet.user.id:
+                        tweet_dict['origin_tweet_user'] = origin_tweet.user.name
+                        tweet_dict['origin_tweet_text'] = origin_tweet.text
+                        tweet_dict['origin_tweet_user_image'] = origin_tweet.user.profile_image_url
+                        tweet_dict['origin_tweet_title'] = origin_tweet.text
 
-                    tweet_dict['reply_tweet_user'] = tweet.user.screen_name
-                    tweet_dict['reply_tweet_text'] = tweet.text
-                    list_of_tweets.append(tweet_dict)
+                        tweet_dict['reply_tweet_user'] = tweet.user.name
+                        tweet_dict['reply_tweet_text'] = tweet.text
+                        tweet_dict['reply_tweet_user_image'] = tweet.user.profile_image_url
+                        tweet_dict['reply_tweet_title'] = tweet.text
+                        list_of_tweets.append(tweet_dict)
                 except tweepy.TweepError as error:
-                    pass
+                    print(error)
         return list_of_tweets
 
     # TODO: search some users tweets and get their ids
