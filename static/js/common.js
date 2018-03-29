@@ -33,11 +33,17 @@ $('#ajax-tweet-form').on('submit', function(event){
             var data = JSON.stringify(json);
             $(".loader").css("display", "none");
             $("#answer").css("display", "none");
+            var ul = document.getElementById('message-bubbles');
+            ul.innerHTML = '';
+            $("#mynetwork").css("display", "block");
+            $(".chat-box").css("display", "block");
             var parsed = JSON.parse(data);
             var container = document.getElementById('mynetwork');
+            var nodes = new vis.DataSet(parsed.nodes);
+            var edges = new vis.DataSet(parsed.edges);
             var data = {
-                nodes: parsed.nodes,
-                edges: parsed.edges
+                nodes: nodes,
+                edges: edges
             };
             var options = {
                 edges:{
@@ -53,7 +59,38 @@ $('#ajax-tweet-form').on('submit', function(event){
                 }
             }
             var network = new vis.Network(container, data, options);
-        }
 
+            network.on('click', function(properties){
+                try{
+                    var id = properties.edges;
+                    var clickedEdge = data.edges.get(id);
+
+                    var node1 = data.nodes.get(clickedEdge[0].from);
+                    var node2 = data.nodes.get(clickedEdge[0].to);
+
+                    var ul = document.getElementById('message-bubbles');
+                    var li1 = document.createElement("li");
+                    var li2 = document.createElement("li");
+                    var spanleft = document.createElement("span")
+                    var spanright = document.createElement("span")
+
+                    spanleft.setAttribute("class", "left")
+                    spanleft.appendChild(document.createTextNode(node1.title))
+                    li1.appendChild(spanleft);
+                    ul.appendChild(li1);
+
+                    spanright.setAttribute("class", "right")
+                    spanright.appendChild(document.createTextNode(node2.title))
+                    li2.appendChild(spanright);
+                    ul.appendChild(li2);
+                }
+                catch(TypeError){
+                    console.log("Nothin special. Empty place clicked.")
+                }
+            });
+
+
+
+        }
     });
 });

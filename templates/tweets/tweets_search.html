@@ -3,9 +3,9 @@
 {% block title %}Search for Tweets{% endblock title %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-5">
-            <form class="form-signin tweets-search-form" id="ajax-tweet-form" method="POST">
+    <div class="row margin100">
+        <div class="col-md-12">
+            <form class="form-signin" id="ajax-tweet-form" method="POST">
                 {% csrf_token %}
                 <img class="mb-3" src={% static "images/twitter-logo-final.png" %} alt="" width="150" height="150">
 
@@ -22,8 +22,21 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-7">
+    </div>
+    <div class="row">
+        <div class="col-md-6">
             <div id="mynetwork"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="chat-box">
+                <div class="header">
+                    Network Messages
+                </div>
+                <div id="messages" class="messages">
+                    <ul id="message-bubbles">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
