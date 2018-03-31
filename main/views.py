@@ -11,7 +11,7 @@ try_lstm = TryLstm()  # LSTM instance creation
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class TryLstm(View):
+class TryLstmView(View):
     def get(self, request):
         return render(request, "main/try_lstm.html")
 
