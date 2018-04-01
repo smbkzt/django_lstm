@@ -18,11 +18,13 @@ class TryLstm():
         self.restore_models()
 
     def load_gloves(self):
+        """Loads GloVes model (wordsList)"""
         filepath = BASE_DIR + '/main/tf/data/wordsList.npy'
         self.wordsList = np.load(filepath).tolist()
         self.wordsList = [word for word in self.wordsList]
 
     def restore_models(self):
+        """Restores the TF session"""
         tf.reset_default_graph()
         self.sess = tf.Session()
 
@@ -37,6 +39,7 @@ class TryLstm():
         self.prediction = tf.get_collection("prediction")[0]
 
     def predict(self, inputText):
+        """Prediction method"""
         inputMatrix = self.getSentenceMatrix(inputText)
         predictedSentiment = self.sess.run(self.prediction,
                                            {self.input_data: inputMatrix}
@@ -58,6 +61,8 @@ class TryLstm():
         return answer
 
     def clean_sentence(self, string):
+        """Cleans the input from punctuation marks"""
+        string = string.lower()
         cleaned_string = ''
         for num, char in enumerate(string):
             # Ignoring the "< - >"" statement
@@ -76,7 +81,7 @@ class TryLstm():
         return cleaned_string
 
     def getSentenceMatrix(self, sentence):
-        arr = np.zeros([self.batchSize, self.maxSeqLength])
+        """Searches the word in matrix and returns the word matrix"""
         sentenceMatrix = np.zeros([self.batchSize, self.maxSeqLength],
                                   dtype='int32')
         cleanedSentence = self.clean_sentence(sentence)
