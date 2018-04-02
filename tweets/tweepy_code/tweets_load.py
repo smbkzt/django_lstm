@@ -1,10 +1,6 @@
 #!/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6
 # # -*- coding: UTF-8 -*-
-
-import re
-import time
 import logging
-import string
 
 import tweepy
 from tweepy import OAuthHandler
@@ -35,21 +31,26 @@ class TwitterAccount():
                                    rpp=100,
                                    result_type="recent",
                                    include_entities=True,
-                                   lang="en").items(100):
+                                   lang="en",
+                                   tweet_mode="extended").items(100):
             if tweet.in_reply_to_status_id:
                 try:
                     tweet_dict = {}
                     origin_tweet = self.api.get_status(
-                                            id=tweet.in_reply_to_status_id
-                                            )
+                                            id=tweet.in_reply_to_status_id,
+                                            tweet_mode="extended")
                     if not origin_tweet.user.id == tweet.user.id:
-                        tweet_dict['origin_tweet_user'] = origin_tweet.user.screen_name
-                        tweet_dict['origin_tweet_user_image'] = origin_tweet.user.profile_image_url
-                        tweet_dict['origin_tweet_title'] = origin_tweet.text
+                        tweet_dict['origin_tweet_user'] = \
+                            origin_tweet.user.screen_name
+                        tweet_dict['origin_tweet_user_image'] = \
+                            origin_tweet.user.profile_image_url
+                        tweet_dict['origin_tweet_title'] = \
+                            origin_tweet.full_text
 
                         tweet_dict['reply_tweet_user'] = tweet.user.screen_name
-                        tweet_dict['reply_tweet_user_image'] = tweet.user.profile_image_url
-                        tweet_dict['reply_tweet_title'] = tweet.text
+                        tweet_dict['reply_tweet_user_image'] = \
+                            tweet.user.profile_image_url
+                        tweet_dict['reply_tweet_title'] = tweet.full_text
                         list_of_tweets.append(tweet_dict)
                 except tweepy.TweepError as error:
                     print(error)

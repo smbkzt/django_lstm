@@ -1,3 +1,4 @@
+import re
 import json
 
 from django.views import View
@@ -9,14 +10,12 @@ from .tweepy_code import tweets_load
 from main.views import try_lstm
 
 
-# Create your views here.
 @method_decorator(csrf_exempt, name='dispatch')
 class TweetsSearch(View):
     def get(self, request):
         return render(request, "tweets/tweets_search.html")
 
     def post(self, request):
-        # TODO: make the box show original and response messages
         if request.is_ajax():
             keywords = request.POST.get("keywords", "")
             if not keywords == "":
@@ -29,27 +28,35 @@ class TweetsSearch(View):
                 for dictionary in list_of_tweets:
                     message = dictionary["origin_tweet_title"] + " < - > " + \
                               dictionary["reply_tweet_title"]
+                    message = re.sub(r'@[A-Za-z0-9]+', '', message)
                     prediction = try_lstm.predict(message)
-                    edge_label = "disagreed" if "disagreement" in prediction else "agreed"
+                    edge_label = "disagreed" if "disagreement" \
+                        in prediction else "agreed"
 
                     origin_tweet_n = number
                     reply_tweet_n = number+1
-                    dic1 = {"id": number,
+                    dic1 = {
+                            "id": number,
                             "label": dictionary['origin_tweet_user'],
                             "image": dictionary['origin_tweet_user_image'],
-                            "title": dictionary["origin_tweet_title"]}
+                            "title": dictionary["origin_tweet_title"]
+                    }
                     nodes_list.append(dic1)
 
-                    dic2 = {"id": number+1,
+                    dic2 = {
+                            "id": number+1,
                             "label": dictionary['reply_tweet_user'],
                             "image": dictionary['reply_tweet_user_image'],
-                            "title": dictionary["reply_tweet_title"]}
+                            "title": dictionary["reply_tweet_title"]
+                    }
                     nodes_list.append(dic2)
                     number += 2
                     if number > 0:
-                        dic3 = {"from": origin_tweet_n,
+                        dic3 = {
+                                "from": origin_tweet_n,
                                 "to": reply_tweet_n,
-                                "label": edge_label}
+                                "label": edge_label
+                        }
                         edges_list.append(dic3)
                 json_response = {
                     "nodes": nodes_list,

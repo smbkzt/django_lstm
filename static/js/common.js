@@ -69,6 +69,7 @@ $('#ajax-tweet-form').on('submit', function(event){
                     var node2 = data.nodes.get(clickedEdge[0].to);
 
                     var ul = document.getElementById('message-bubbles');
+                    ul.innerHTML = "";
                     var li1 = document.createElement("li");
                     var li2 = document.createElement("li");
                     var spanleft = document.createElement("span")
@@ -88,9 +89,6 @@ $('#ajax-tweet-form').on('submit', function(event){
                     console.log("Nothin special. Empty place clicked.")
                 }
             });
-
-
-
         }
     });
 });
