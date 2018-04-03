@@ -1,4 +1,6 @@
-main/tf/
+main/tf/data
+main/tf/models
+main/tf/tensorboard
 __pycache__
 .DS_Store
 */.DS_Store/

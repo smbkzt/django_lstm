@@ -1,0 +1,32 @@
+{% extends "../base.html" %} {% load static %} {% block title %}Train LSTM model{% endblock title %} {% block content %}
+<div class="row margin100">
+    <form class="form-signin" id="ajax-train-form" method="POST" action="/try-lstm">
+        {% csrf_token %}
+        <h1 class="h3 mb-3 font-weight-normal">Train the model</h1>
+
+        <input id="train-form-dimensions" class="form-control" placeholder="Number of Dimensions" type="text" name="train_dimensions">
+
+        <input id="train-form-seqlength" class="form-control" placeholder="Max sequence length" type="text" name="train_seqlength">
+
+        <input id="train-form-batch" class="form-control" placeholder="Batches size" type="text" name="train_batch">
+
+        <input id="train-form-units" class="form-control" placeholder="LSTM units" type="text" name="train_units">
+
+        <input id="train-form-classes" class="form-control" placeholder="Number of classes" type="text" name="train_classes">
+
+        <input id="train-form-steps" class="form-control" placeholder="Training steps" type="text" name="train_steps">
+
+        <input id="train-form-cells" class="form-control" placeholder="Cells" type="text" name="train_cells">
+
+        <button class="mt-2 btn btn-lg btn-primary btn-block" type="submit">Train</button>
+        <div id="answer" class="mt-3" role="alert"></div>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <div class="loader"></div>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

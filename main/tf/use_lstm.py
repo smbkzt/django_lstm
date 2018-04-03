@@ -1,10 +1,10 @@
 import os
-from string import punctuation
 
 import numpy as np
 import tensorflow as tf
 
 from . import config
+from .train_and_test import PrepareData
 from django_lstm.settings import BASE_DIR
 
 
@@ -19,6 +19,7 @@ class TryLstm():
 
     def load_gloves(self):
         """Loads GloVes model (wordsList)"""
+        print("Loading gloves model...")
         filepath = BASE_DIR + '/main/tf/data/wordsList.npy'
         self.wordsList = np.load(filepath).tolist()
         self.wordsList = [word for word in self.wordsList]
@@ -39,7 +40,6 @@ class TryLstm():
         self.prediction = tf.get_collection("prediction")[0]
 
     def predict(self, inputText):
-        """Prediction method"""
         inputMatrix = self.getSentenceMatrix(inputText)
         predictedSentiment = self.sess.run(self.prediction,
                                            {self.input_data: inputMatrix}
@@ -49,42 +49,15 @@ class TryLstm():
         print(f"Disagreement coefficient:",
               "{0:.2f}".format(predictedSentiment[1]))
         if (predictedSentiment[0] > predictedSentiment[1]):
-            # print("|----------------------------------------------------|")
-            # print("|---The comment message has agreement sentiment------|")
-            # print("|----------------------------------------------------|")
             answer = "The comment message has agreement sentiment"
         else:
-            # print("|----------------------------------------------------|")
-            # print("|---The comment message has disagreement sentiment---|")
-            # print("|----------------------------------------------------|")
             answer = "The comment message has disagreement sentiment"
         return answer
 
-    def clean_sentence(self, string):
-        """Cleans the input from punctuation marks"""
-        string = string.lower()
-        cleaned_string = ''
-        for num, char in enumerate(string):
-            # Ignoring the "< - >"" statement
-            if char == "<":
-                if string[num + 2] == "-" and string[num + 4] == ">":
-                    cleaned_string += char
-            elif char == "-":
-                if string[num - 2] == "<" and string[num + 2] == ">":
-                    cleaned_string += char
-            elif char == ">":
-                if string[num - 4] == "<" and string[num - 2] == "-":
-                    cleaned_string += char
-            # Deleting the punctuation marks
-            elif char not in punctuation:
-                cleaned_string += char
-        return cleaned_string
-
     def getSentenceMatrix(self, sentence):
-        """Searches the word in matrix and returns the word matrix"""
         sentenceMatrix = np.zeros([self.batchSize, self.maxSeqLength],
                                   dtype='int32')
-        cleanedSentence = self.clean_sentence(sentence)
+        cleanedSentence = PrepareData.clean_string(sentence)
         split = cleanedSentence.split()
         for indexCounter, word in enumerate(split):
             try:
