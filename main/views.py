@@ -37,7 +37,7 @@ def home(request):
 @method_decorator(csrf_exempt, name='dispatch')
 class TrainPageView(View):
     def get(self, request):
-        return render(request, "main/train.html")
+        return render(request, "main/retrain_page.html")
 
     def post(self, request):
         if request.is_ajax():
@@ -60,4 +60,4 @@ class TrainPageView(View):
                                 content_type="application/json"
                                 )
         else:
-            return render(request, "main/train.html")
+            return render(request, "main/retrain_page.html")
