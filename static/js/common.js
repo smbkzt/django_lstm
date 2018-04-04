@@ -5,8 +5,10 @@ $('#ajax-lstm-form').on('submit', function(event){
     $.ajax({
         url : "/try-lstm",
         type : "POST",
-        data : { "the_origin" : $('#input-origin-message').val(),
-                 "the_comment": $('#input-comment-message').val() },
+        data : {
+            "the_origin" : $('#input-origin-message').val(),
+            "the_comment": $('#input-comment-message').val()
+        },
         success : function(json) {
             $(".loader").css("display", "none");
             $("#answer").css("display", "block");
@@ -17,7 +19,6 @@ $('#ajax-lstm-form').on('submit', function(event){
                 $("#answer").html('<div class="alert alert-danger">' + json + '</div>');
             }
         }
-
     });
 });
 
@@ -35,7 +36,8 @@ $('#ajax-train-form').on('submit', function(event){
             "train_units": $('#train-form-units').val(),
             "train_classes": $('#train-form-classes').val(),
             "train_steps": $('#train-form-steps').val(),
-            "train_cells": $('#train-form-cells').val() },
+            "train_cells": $('#train-form-cells').val()
+        },
         success : function(json) {
             $(".loader").css("display", "none");
             $("#answer").css("display", "block");
@@ -46,7 +48,6 @@ $('#ajax-train-form').on('submit', function(event){
                 $("#answer").html('<div class="alert alert-success">' + json + '</div>');
             }
         }
-
     });
 });
 
@@ -57,7 +58,9 @@ $('#ajax-tweet-form').on('submit', function(event){
     $.ajax({
         url : "/tweet-search",
         type : "POST",
-        data : { "keywords" : $('#input-keyword').val()},
+        data : {
+            "keywords" : $('#input-keyword').val()
+        },
         success : function(json) {
             var data = JSON.stringify(json);
             $(".loader").css("display", "none");

@@ -1,12 +1,14 @@
 import json
 
-from django.views import View
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import HttpResponse, render
 from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from .tf import use_lstm
 from .tf import train_and_test as tr
+from .tf import use_lstm
+
+
 try_lstm = use_lstm.TryLstm()  # LSTM instance creation
 
 

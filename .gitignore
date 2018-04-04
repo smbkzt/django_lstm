@@ -8,3 +8,4 @@ settings_config.py
 myenv
 .vscode
 *.sqlite3
+*_default
