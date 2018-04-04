@@ -22,33 +22,8 @@ $('#ajax-lstm-form').on('submit', function(event){
     });
 });
 
-$('#ajax-train-form').on('submit', function(event){
-    event.preventDefault();
+$('#train-form').on('submit', function(event){
     $(".loader").css("display", "inline-block");
-    $("#answer").css("display", "none");
-    $.ajax({
-        url : "/train-lstm",
-        type : "POST",
-        data : {
-            "train_dimensions" : $('#train-form-dimensions').val(),
-            "train_seqlength": $('#train-form-seqlength').val(),
-            "train_batch": $('#train-form-batch').val(),
-            "train_units": $('#train-form-units').val(),
-            "train_classes": $('#train-form-classes').val(),
-            "train_steps": $('#train-form-steps').val(),
-            "train_cells": $('#train-form-cells').val()
-        },
-        success : function(json) {
-            $(".loader").css("display", "none");
-            $("#answer").css("display", "block");
-            if (json.startsWith("Error")){
-                $("#answer").html('<div class="alert alert-danger">' + json + '</div>');
-            }
-            else{
-                $("#answer").html('<div class="alert alert-success">' + json + '</div>');
-            }
-        }
-    });
 });
 
 $('#ajax-tweet-form').on('submit', function(event){

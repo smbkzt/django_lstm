@@ -42,24 +42,18 @@ class TrainPageView(View):
         return render(request, "main/retrain_page.html")
 
     def post(self, request):
-        if request.is_ajax():
-            numDimensions = request.POST.get("train_dimensions", "")
-            maxSeqLength = request.POST.get("train_seqlength", "")
-            batchSize = request.POST.get("train_batch", "")
-            lstmUnits = request.POST.get("train_units", "")
-            numClasses = request.POST.get("train_classes", "")
-            training_steps = request.POST.get("train_steps", "")
-            cells = request.POST.get("train_cells", "")
+        numDimensions = request.POST.get("train_dimensions", "")
+        maxSeqLength = request.POST.get("train_seqlength", "")
+        batchSize = request.POST.get("train_batch", "")
+        lstmUnits = request.POST.get("train_units", "")
+        numClasses = request.POST.get("train_classes", "")
+        training_steps = request.POST.get("train_steps", "")
+        cells = request.POST.get("train_cells", "")
 
-            try:
-                tr.PrepareData(numDimensions, maxSeqLength, batchSize,
-                               lstmUnits, numClasses, training_steps, cells)
-                answer = "The training process is done"
-            except Exception as e:
-                answer = f'Error: {e}'
-
-            return HttpResponse(json.dumps(answer),
-                                content_type="application/json"
-                                )
-        else:
-            return render(request, "main/retrain_page.html")
+        try:
+            tr.PrepareData(numDimensions, maxSeqLength, batchSize,
+                           lstmUnits, numClasses, training_steps, cells)
+            answer = "The training process is done"
+        except Exception as e:
+            answer = f'Error: {e}'
+        return render(request, "main/retrain_page.html", {"answer": answer})
