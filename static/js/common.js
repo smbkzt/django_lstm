@@ -18,6 +18,9 @@ $('#ajax-lstm-form').on('submit', function(event){
             else{
                 $("#answer").html('<div class="alert alert-danger">' + json + '</div>');
             }
+        },
+        error: function(data){
+            $("#answer").html('<div class="alert alert-danger">' + data + '</div>');
         }
     });
 });
@@ -96,6 +99,9 @@ $('#ajax-tweet-form').on('submit', function(event){
                     console.log("Nothin special. Empty place clicked.")
                 }
             });
+        },
+        error: function(data){
+            $("#answer").html('<div class="alert alert-danger">' + data + '</div>');
         }
     });
 });
