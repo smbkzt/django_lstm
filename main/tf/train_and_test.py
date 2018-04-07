@@ -60,21 +60,18 @@ class PrepareData():
         #                 print(error)
         #     else:
         #         string = re.sub('https?://[A-Za-z0-9./]+', '', string)
-        string = re.sub('https?://[A-Za-z0-9./]+', '', string)
-        string = string.lower()
+        string = re.sub('https?://[A-Za-z0-9./]+', '', string.lower())
         cleaned_string = ''
-        for num, char in enumerate(string):
-            if char == "<":
-                if string[num + 2] == "-" and string[num + 4] == ">":
+        string = string.split(" < - > ")
+        for num, part in enumerate(string, 1):
+            for char in part:
+                if char not in punctuation:
                     cleaned_string += char
-            elif char == "-":
-                if string[num - 2] == "<" and string[num + 2] == ">":
-                    cleaned_string += char
-            elif char == ">":
-                if string[num - 4] == "<" and string[num - 2] == "-":
-                    cleaned_string += char
-            elif char not in punctuation:
-                cleaned_string += char
+            if num == 1:
+                cleaned_string += " < - > "
+        repeated_found = re.search(r'\s{2,}', cleaned_string)
+        if repeated_found:
+            cleaned_string = re.sub(r'\s{2,}', " ", cleaned_string)
         return cleaned_string
 
     def load_glove_model(self):
@@ -82,7 +79,7 @@ class PrepareData():
         self.wordsList = np.load(BASE_DIR + '/main/tf/data/wordsList.npy')
         self.wordsList = self.wordsList.tolist()
 
-    def calculate_lines(self) -> str:
+    def calculate_lines(self) -> int:
         # Get the list of all files in folder
         self.filesList = [self.dataset_path + f for f
                           in listdir(self.dataset_path)
@@ -91,13 +88,10 @@ class PrepareData():
         for file in self.filesList:
             with open(file, 'r') as f:
                 lines = f.readlines()
-            print(file)
             if file.endswith("data/agreed.polarity"):
                 self.agr_lines = len(lines)
             else:
                 self.dis_lines = len(lines)
-        print("Agreement examples ", self.agr_lines)
-        print("Disagreement examples ", self.dis_lines)
         self.line_number = self.agr_lines + self.dis_lines
 
     def create_idx(self):
@@ -126,7 +120,7 @@ class PrepareData():
                             # repeated_found = re.match(r'(.)\1{2,}', word)
                             # if repeated_found:
                             #     print(word)
-                            ids[self.current_state + num][w_num] = 000
+                            ids[self.current_state + num][w_num] = 399999
                         if w_num >= self.maxSeqLength - 1:
                             break
             # To continue from "checkpoint"

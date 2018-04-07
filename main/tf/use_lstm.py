@@ -64,5 +64,5 @@ class TryLstm():
                 sentenceMatrix[0, indexCounter] = self.wordsList.index(word)
             except ValueError:
                 # Vector for unknown words
-                sentenceMatrix[0, indexCounter] = 000
+                sentenceMatrix[0, indexCounter] = 399999
         return sentenceMatrix
