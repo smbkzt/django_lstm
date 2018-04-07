@@ -7,7 +7,7 @@
         <form class="form-signin" id="ajax-lstm-form" method="POST" action="/try-lstm">
             {% csrf_token %}
             <img class="mb-3" src={% static "images/Tensorflow_logo.png" %} alt="" width="120" height="120">
-            <h1 class="h3 mb-3 font-weight-normal">Agreement/Disagreement analysis</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Try LSTM networks in real time</h1>
             <input id="input-origin-message" class="form-control" placeholder="Original tweet" required="" autofocus="" type="text" name="origin_message">
             <input id="input-comment-message" class="form-control" placeholder="Response" required="" type="text" name="response_message">
             <button class="mt-2 btn btn-lg btn-primary btn-block" type="submit">Send</button>
