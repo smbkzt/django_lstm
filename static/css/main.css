@@ -6,6 +6,7 @@ body {
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
+  color: white;
   -ms-flex-align: center;
   -ms-flex-pack: center;
   -webkit-box-align: center;
@@ -23,6 +24,7 @@ body {
   max-width: 500px;
   padding: 15px;
   margin: 0 auto;
+  z-index: 9999;
 }
 
 .margin100{
@@ -86,6 +88,7 @@ body {
 .chat-box{
   margin-top: 30px;
   display: none;
+  color: black;
 }
 
 #answer{
@@ -94,4 +97,14 @@ body {
 
 .login-error{
   position: absolute;
+}
+
+#canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -9999;
 }
