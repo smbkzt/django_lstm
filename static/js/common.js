@@ -45,8 +45,12 @@ $('#ajax-tweet-form').on('submit', function(event){
             $("#answer").css("display", "none");
             var ul = document.getElementById('message-bubbles');
             ul.innerHTML = '';
-            $("#mynetwork").css("display", "block");
-            $(".chat-box").css("display", "block");
+            $(".wrapper-visible").addClass("animated fadeOutRightBig");
+            $(".wrapper-visible").css("position", "absolute");
+
+            $(".wrapper-hidden").addClass("animated fadeInLeftBig");
+            // $(".wrapper-visible").css("display", "none");
+            $(".wrapper-hidden").css("display", "inline-block");
             var parsed = JSON.parse(data);
             var container = document.getElementById('mynetwork');
             var nodes = new vis.DataSet(parsed.nodes);

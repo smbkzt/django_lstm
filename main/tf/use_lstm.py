@@ -10,7 +10,6 @@ from django_lstm.settings import BASE_DIR
 
 class TryLstm():
     def __init__(self):
-        print("Creating LSTM instance")
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
         self.maxSeqLength = config.maxSeqLength
         self.batchSize = config.batchSize
@@ -19,7 +18,6 @@ class TryLstm():
 
     def load_gloves(self):
         """Loads GloVes model (wordsList)"""
-        print("Loading gloves model...")
         filepath = BASE_DIR + '/main/tf/data/wordsList.npy'
         self.wordsList = np.load(filepath).tolist()
         self.wordsList = [word for word in self.wordsList]
@@ -44,10 +42,6 @@ class TryLstm():
         predictedSentiment = self.sess.run(self.prediction,
                                            {self.input_data: inputMatrix}
                                            )[0]
-        print(f"Agreement coefficient:",
-              "{0:.2f}".format(predictedSentiment[0]))
-        print(f"Disagreement coefficient:",
-              "{0:.2f}".format(predictedSentiment[1]))
         if (predictedSentiment[0] > predictedSentiment[1]):
             answer = "The comment message has agreement sentiment"
         else:
@@ -60,9 +54,13 @@ class TryLstm():
         cleanedSentence = PrepareData.clean_string(sentence)
         split = cleanedSentence.split()
         for indexCounter, word in enumerate(split):
-            try:
-                sentenceMatrix[0, indexCounter] = self.wordsList.index(word)
-            except ValueError:
-                # Vector for unknown words
-                sentenceMatrix[0, indexCounter] = 399999
+            if indexCounter >= self.maxSeqLength:
+                break
+            else:
+                try:
+                    sentenceMatrix[0, indexCounter] = self.wordsList.index(
+                        word)
+                except ValueError:
+                    # Vector for unknown words
+                    sentenceMatrix[0, indexCounter] = 399999
         return sentenceMatrix

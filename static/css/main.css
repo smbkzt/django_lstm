@@ -89,17 +89,14 @@ p{
 }
 
 #mynetwork {
-  display: none;
-  margin: auto;
-  margin-top: 30px;
+  margin: 0 auto;
   width: 90%;
   height: 550px;
   background-color: white;
   border: 1px solid lightblue;
 }
+
 .chat-box{
-  margin-top: 30px;
-  display: none;
   color: black;
 }
 
@@ -136,4 +133,15 @@ p{
   -o-filter: blur( 100px);
   filter: blur(100px);
   z-index: -500;
+}
+
+.wrapper-hidden{
+  margin-top: 30px;
+  width: 100%;
+  display: none;
+}
+
+.wrapper-visible{
+  width: 100%;
+  display: block;
 }
