@@ -94,6 +94,7 @@ p{
   height: 550px;
   background-color: white;
   border: 1px solid lightblue;
+  margin-bottom: 10px;
 }
 
 .chat-box{
@@ -127,11 +128,11 @@ p{
   background-color: black;
   opacity: 0.3;
   background-size:cover;
-  -webkit-filter: blur(100px);
-  -moz-filter: blur( 100px);
-  -ms-filter: blur(100px);
-  -o-filter: blur( 100px);
-  filter: blur(100px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  -o-filter: blur(5px);
+  filter: blur(5px);
   z-index: -500;
 }
 

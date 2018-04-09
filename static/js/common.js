@@ -29,6 +29,10 @@ $('#train-form').on('submit', function(event){
     $(".loader").css("display", "inline-block");
 });
 
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 $('#ajax-tweet-form').on('submit', function(event){
     event.preventDefault();
     $(".loader").css("display", "inline-block");
@@ -45,11 +49,13 @@ $('#ajax-tweet-form').on('submit', function(event){
             $("#answer").css("display", "none");
             var ul = document.getElementById('message-bubbles');
             ul.innerHTML = '';
-            $(".wrapper-visible").addClass("animated fadeOutRightBig");
+            $(".wrapper-visible").addClass("animated fadeOutRight");
             $(".wrapper-visible").css("position", "absolute");
+            sleep(200).then(() => {
+                $(".wrapper-visible").css("display", "none");
+            });
 
             $(".wrapper-hidden").addClass("animated fadeInLeftBig");
-            // $(".wrapper-visible").css("display", "none");
             $(".wrapper-hidden").css("display", "inline-block");
             var parsed = JSON.parse(data);
             var container = document.getElementById('mynetwork');
