@@ -16,8 +16,8 @@
 </head>
 <body class="text-center">
     <div class="blur"></div>
-    <div id="canvas">
-      <canvas id="c"></canvas>
+    <div id="main-background" class="main-background">
+      <canvas id="demo-canvas"></canvas>
     </div>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
       <a class="navbar-brand" href="{%url 'home_page'%}">Home page</a>
@@ -51,7 +51,8 @@
     </div>
 
     {% block css %}{%endblock%}
-    <script language="JavaScript" src={% static 'js/canvas.js' %}></script>
+    <script language="JavaScript" src={% static 'js/TweenMax.min.js' %}></script>
+    <script language="JavaScript" src={% static 'js/background.js' %}></script>
     <script language="JavaScript" src={% static "js/glm-ajax.js" %}></script>
     <script language="JavaScript" src={% static "js/jquery-3.3.1.min.js" %}></script>
     <script language="JavaScript" src={% static "js/common.js" %}></script>

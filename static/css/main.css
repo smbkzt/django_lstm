@@ -1,7 +1,6 @@
 html, body {
   min-height: 500px;
 }
-
 body {
   display: -ms-flexbox;
   display: -webkit-box;
@@ -10,8 +9,10 @@ body {
   -ms-flex-align: center;
   -ms-flex-pack: center;
   -webkit-box-align: center;
+  box-align: center;
   align-items: center;
   -webkit-box-pack: center;
+  box-pack: center;
   justify-content: center;
   padding-top: 0px;
   padding-bottom: 40px;
@@ -19,43 +20,35 @@ body {
   font-family: 'Lato', serif;
   font-size: 1.2em;
 }
-
 p{
   font-size: 1em;
 }
-
 .form-signin {
   width: 100%;
   max-width: 500px;
   padding: 15px;
   margin: 0 auto;
 }
-
 .margin100{
   margin-top: 50px;
 }
-
 .form-signin .checkbox {
   font-weight: 400;
 }
-
 .form-signin .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
 }
-
 .form-signin .form-control:focus {
   z-index: 2;
 }
-
 .form-signin input[type="text"] {
   margin-bottom: 1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-
 /*Loader*/
 .loader {
   margin-top: 20px;
@@ -68,7 +61,6 @@ p{
   height: 40px;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -79,15 +71,13 @@ p{
   padding: 3rem 1.5rem;
   text-align: center;
 }
-
 .text-center{
   text-align: center;
 }
-
 .text-justify{
   text-align: justify;
 }
-
+/* Graph code */
 #mynetwork {
   margin: 0 auto;
   width: 90%;
@@ -96,29 +86,15 @@ p{
   border: 1px solid lightblue;
   margin-bottom: 10px;
 }
-
 .chat-box{
   color: black;
 }
-
 #answer{
   display: none;
 }
-
 .login-error{
   position: absolute;
 }
-
-#canvas {
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -9999;
-}
-
 .blur {
   width:100%;
   height:100%;
@@ -135,14 +111,51 @@ p{
   filter: blur(5px);
   z-index: -500;
 }
-
 .wrapper-hidden{
   margin-top: 30px;
   width: 100%;
   display: none;
 }
-
 .wrapper-visible{
   width: 100%;
   display: block;
+}
+/* background */
+.main-background {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -9999;
+	background: #333;
+	overflow: hidden;
+	background-position: center center;
+}
+#main-background {
+	background-image: url('https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/img/demo-1-bg.jpg');
+}
+/* End of background */
+.main-title {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	color: #f9f1e9;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate3d(-50%,-50%,0);
+	transform: translate3d(-50%,-50%,0);
+}
+.demo-1 .main-title {
+	text-transform: uppercase;
+	font-size: 4.2em;
+	letter-spacing: 0.1em;
+}
+.main-title .thin {
+	font-weight: 200;
+}
+@media only screen and (max-width : 768px) {
+	.demo-1 .main-title {
+		font-size: 3em;
+	}
 }

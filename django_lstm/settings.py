@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'tweets',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

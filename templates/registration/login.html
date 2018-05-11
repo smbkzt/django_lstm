@@ -1,30 +1,25 @@
 {% extends "../base.html" %}
+{% load i18n widget_tweaks %}
 {%block title%}Login page{%endblock%}
 {% block content %}
-<div class="row margin100">
-  <div class="col-md-3"></div>
-  <div class="col-md-6 margin100">
-    <form method="post" class="form-signin" action="{% url 'login' %}">
-      {% csrf_token %}
-      <div>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </div>
-      <div>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </div>
-      <div>
-        <input type="submit" value="login" />
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 margin100">
+      <form method="post" class="form-signin margin100" action="{% url 'login' %}">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in to see this page</h2>
+        {{ form.username|attr:"class:form-control mt-3"|attr:"type:email"|attr:"placeholder: Enter the login"}}
+
+        {{ form.password|attr:"class:form-control mt-1"|attr:"id:inputPassword"|attr:"type:password"}}
+        <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Sign in</button>
         <input type="hidden" name="next" value="{{ next }}" />
-      </div>
-      {% if form.errors %}
-        <div class="alert alert-danger login-error mt-3">
-          <p>Your username and password didn't match. Please try again.</p>
-        </div>
-      {% endif %}
-    </form>
-  </div>
-  <div class="col-md-3"></div>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row">
+    {% if form.errors %}
+      <p class="alert alert-danger login-error mt-1">Your username and password didn't match. Please try again.</p>
+    {% endif %}
 </div>
 {% endblock %}
