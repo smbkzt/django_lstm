@@ -3,7 +3,6 @@ import os
 import numpy as np
 import tensorflow as tf
 
-from . import config
 from .train_and_test import PrepareData
 from django_lstm.settings import BASE_DIR
 
@@ -11,8 +10,6 @@ from django_lstm.settings import BASE_DIR
 class TryLstm():
     def __init__(self):
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-        self.maxSeqLength = config.maxSeqLength
-        self.batchSize = config.batchSize
         self.load_gloves()
         self.restore_models()
 
@@ -36,6 +33,8 @@ class TryLstm():
         # Restoring the tf variables
         self.input_data = tf.get_collection("input_data")[0]
         self.prediction = tf.get_collection("prediction")[0]
+        self.__maxSeqLength = tf.get_collection("max_seq_length")[0]
+        self.__batchSize = tf.get_collection("batch_size")[0]
 
     def predict(self, inputText):
         inputMatrix = self.getSentenceMatrix(inputText)
@@ -49,12 +48,12 @@ class TryLstm():
         return answer
 
     def getSentenceMatrix(self, sentence):
-        sentenceMatrix = np.zeros([self.batchSize, self.maxSeqLength],
+        sentenceMatrix = np.zeros([self.__batchSize, self.__maxSeqLength],
                                   dtype='int32')
         cleanedSentence = PrepareData.clean_string(sentence)
         split = cleanedSentence.split()
         for indexCounter, word in enumerate(split):
-            if indexCounter >= self.maxSeqLength:
+            if indexCounter >= self.__maxSeqLength:
                 break
             else:
                 try:
