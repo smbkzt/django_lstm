@@ -16,7 +16,7 @@ pyparsing==2.2.0
 python-dateutil==2.6.1
 pytz==2018.3
 six==1.11.0
-tensorboard==1.6.0
+tensorboard==1.12.2
 tensorflow==1.6.0
 termcolor==1.1.0
 Werkzeug==0.14.1
