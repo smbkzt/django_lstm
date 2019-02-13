@@ -4,7 +4,7 @@ bleach==1.5.0
 cycler==0.10.0
 Django==2.0.3
 gast==0.2.0
-grpcio==1.10.0
+grpcio==1.18.0
 html5lib==0.9999999
 kiwisolver==1.0.1
 Markdown==2.6.11
